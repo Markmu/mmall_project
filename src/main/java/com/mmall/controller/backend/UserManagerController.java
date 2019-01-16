@@ -1,4 +1,4 @@
-package com.mmall.controller.back;
+package com.mmall.controller.backend;
 
 
 import com.mmall.common.ServerResponse;
