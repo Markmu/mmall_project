@@ -24,4 +24,7 @@ public interface IUserService {
     ServerResponse<User> getInformation(Integer userId);
 
     ServerResponse checkRoleAdmin(User user);
+
+
+    ServerResponse<String> adminRegister(User user);
 }

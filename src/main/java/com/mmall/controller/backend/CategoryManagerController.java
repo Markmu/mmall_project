@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/manager/category/")
+@RequestMapping("/manage/category/")
 public class CategoryManagerController {
 
     @Autowired

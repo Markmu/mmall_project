@@ -119,7 +119,7 @@
   <select id="selectChildrenCategory" parameterType="int" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from mall_user
+    from mmall_category
     where parent_id = #{parentId}
   </select>
 </mapper>

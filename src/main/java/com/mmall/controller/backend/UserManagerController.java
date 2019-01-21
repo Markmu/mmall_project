@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/manager/user/")
+@RequestMapping("/manage/user/")
 public class UserManagerController {
 
     @Autowired
@@ -28,11 +28,21 @@ public class UserManagerController {
         if (sr.isSuccess()) {
             User user = sr.getData();
             if (user.getRole() == Const.Role.ROLE_ADMIN) {
+                session.setAttribute(Const.CURRENT_USER, user);
                 return ServerResponse.createBySuccess(user);
             }
             return ServerResponse.createByErrorMessage("不是管理员,无法登录");
         }
+
         return sr;
     }
+
+    @RequestMapping(value = "register.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> register(User user) {
+        return iUserService.adminRegister(user);
+    }
+
+
 
 }

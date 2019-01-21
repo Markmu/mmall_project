@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service("iCategoryService")
-public class CategoryServiceImpl implements ICategoryService{
+public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements ICategoryService{
         Category category = new Category();
         category.setId(categoryId);
         category.setName(categoryName);
-        int rowCount = categoryMapper.insertSelective(category);
+        int rowCount = categoryMapper.updateByPrimaryKeySelective(category);
         if (rowCount > 0) {
             return ServerResponse.createBySuccessMessage("更新品类名称成功");
         }
