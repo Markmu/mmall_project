@@ -192,7 +192,6 @@
       receiver_district = #{receiverDistrict,jdbcType=VARCHAR},
       receiver_address = #{receiverAddress,jdbcType=VARCHAR},
       receiver_zip = #{receiverZip,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
     and user_id = #{userId}
@@ -208,7 +207,7 @@
   <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap" >
     SELECT
     <include refid="Base_Column_List"/>
-    from mmal_shipping
+    from mmall_shipping
     WHERE  user_id = #{userId}
   </select>
 </mapper>
