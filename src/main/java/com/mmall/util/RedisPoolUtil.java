@@ -13,7 +13,7 @@ public class RedisPoolUtil {
         String result = null;
         try {
             jedis = RedisPool.getResource();
-            jedis.setex(key, time, value);
+            result = jedis.setex(key, time, value);
         } catch (Exception e) {
             log.error("[setex key:{} time:{} value:{} error]", key, time, value, e);
             RedisPool.returnBrokenResource(jedis);
@@ -28,7 +28,7 @@ public class RedisPoolUtil {
         Long result = null;
         try {
             jedis = RedisPool.getResource();
-            jedis.expire(key, seconds);
+            result = jedis.expire(key, seconds);
         } catch (Exception e) {
             log.error("[expire key:{} seconds:{} error]", key, seconds, e);
             RedisPool.returnBrokenResource(jedis);
@@ -43,7 +43,7 @@ public class RedisPoolUtil {
         String result = null;
         try {
             jedis = RedisPool.getResource();
-            jedis.set(key, value);
+            result = jedis.set(key, value);
         } catch (Exception e) {
             log.error("[set key:{} value:{} error]", key, value, e);
             RedisPool.returnBrokenResource(jedis);
@@ -73,7 +73,7 @@ public class RedisPoolUtil {
         Long result = null;
         try {
             jedis = RedisPool.getResource();
-            jedis.del(key);
+            result = jedis.del(key);
         } catch (Exception e) {
             log.error("[get key:{} error]", key, e);
             RedisPool.returnBrokenResource(jedis);
