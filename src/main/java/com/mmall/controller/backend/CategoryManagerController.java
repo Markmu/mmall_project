@@ -8,6 +8,9 @@ import com.mmall.pojo.User;
 import com.mmall.service.ICategoryService;
 import com.mmall.service.IUserService;
 import com.mmall.util.Const;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -31,8 +35,9 @@ public class CategoryManagerController {
 
     @RequestMapping(value = "add_category.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> addCategory(HttpSession session, String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> addCategory(HttpServletRequest request, String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
+        String loginToken = CookieUtil.readLoginToken(request);
+        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -46,8 +51,9 @@ public class CategoryManagerController {
 
     @RequestMapping(value = "set_category.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> setCategory(HttpSession session, Integer categoryId, String categoryName) {
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> setCategory(HttpServletRequest request, Integer categoryId, String categoryName) {
+        String loginToken = CookieUtil.readLoginToken(request);
+        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -61,8 +67,9 @@ public class CategoryManagerController {
 
     @RequestMapping(value = "get_category.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse getChildrenParallelCategory(HttpSession session, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse getChildrenParallelCategory(HttpServletRequest request, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
+        String loginToken = CookieUtil.readLoginToken(request);
+        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -75,8 +82,9 @@ public class CategoryManagerController {
     }
     @RequestMapping(value = "get_deep_category.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse getCategoryAndDeepChildrenCategory(HttpSession session, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse getCategoryAndDeepChildrenCategory(HttpServletRequest request, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
+        String loginToken = CookieUtil.readLoginToken(request);
+        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
