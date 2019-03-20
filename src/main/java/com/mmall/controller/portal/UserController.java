@@ -32,7 +32,7 @@ public class UserController {
         if (sr.isSuccess()) {
             String sessionId = session.getId();
             CookieUtil.writeLoginToken(httpServletResponse, sessionId);
-            RedisPoolUtil.setex(sessionId, JsonUtil.obj2String(sr.getData()), 60 * 30);
+            RedisPoolUtil.setex(sessionId, JsonUtil.obj2String(sr.getData()), Const.RedisCache.SESSION_EXTIME);
         }
         return sr;
     }
@@ -41,7 +41,9 @@ public class UserController {
     @RequestMapping(value = "logout.do", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        String loginToken = CookieUtil.readLoginToken(request);
         CookieUtil.delLoginToken(request, response);
+        RedisPoolUtil.del(loginToken);
         return ServerResponse.createBySuccess();
     }
 
@@ -61,6 +63,9 @@ public class UserController {
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpServletRequest request) {
         String sessionId = CookieUtil.readLoginToken(request);
+        if (sessionId == null) {
+            return ServerResponse.createByErrorMessage("用户未登录,请重新登录");
+        }
         User user = JsonUtil.string2Obj(RedisPoolUtil.get(sessionId), User.class);
         if (user == null) {
             return ServerResponse.createByErrorMessage("用户未登录,请重新登录");
