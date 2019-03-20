@@ -58,7 +58,7 @@ public class RedisPoolUtil {
         String result = null;
         try {
             jedis = RedisPool.getResource();
-            jedis.get(key);
+            result = jedis.get(key);
         } catch (Exception e) {
             log.error("[get key:{} error]", key, e);
             RedisPool.returnBrokenResource(jedis);
