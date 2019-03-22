@@ -12,6 +12,8 @@ public class Const {
 
     public static final String EMAIL = "email";
 
+    public static final String TOKEN_PREFIX = "token_";
+
     public interface Role {
         int ROLE_CUSTOMER = 0;
         int ROLE_ADMIN = 1;
@@ -28,6 +30,7 @@ public class Const {
 
     public interface RedisCache {
         int SESSION_EXTIME = 60 * 30;
+        int FORGET_TOKEN_EXTIME = 60 * 60 * 12;
     }
 
     public interface ProductListOrderBy {
