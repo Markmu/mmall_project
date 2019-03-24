@@ -7,7 +7,7 @@ import com.mmall.service.ICartService;
 import com.mmall.util.Const;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import com.mmall.vo.CartVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/cart/")
@@ -29,7 +28,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> add(HttpServletRequest request, Integer productId, Integer count) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -40,7 +39,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> update(HttpServletRequest request, Integer produtId, Integer count) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -51,7 +50,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> deleteProducts(HttpServletRequest request, String productIds) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -62,7 +61,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> list(HttpServletRequest request) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -73,7 +72,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> selectAll(HttpServletRequest request) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -84,7 +83,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> unSelectAll(HttpServletRequest request) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -95,7 +94,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> selectProduct(HttpServletRequest request, Integer productId) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -106,7 +105,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> unSelectProduct(HttpServletRequest request, Integer productId) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -117,7 +116,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<Integer> getProductCount(HttpServletRequest request) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User user = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User user = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }

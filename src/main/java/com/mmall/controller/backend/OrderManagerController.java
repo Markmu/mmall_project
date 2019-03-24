@@ -7,10 +7,9 @@ import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IOrderService;
 import com.mmall.service.IUserService;
-import com.mmall.util.Const;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import com.mmall.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RequestMapping("/manage/order/")
 @Controller
@@ -39,7 +37,7 @@ public class OrderManagerController {
                                          @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -57,7 +55,7 @@ public class OrderManagerController {
     @ResponseBody
     public ServerResponse<OrderVo> detail(HttpServletRequest request, Long orderNo) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -76,7 +74,7 @@ public class OrderManagerController {
                                            @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -92,7 +90,7 @@ public class OrderManagerController {
     @ResponseBody
     public ServerResponse sendGoods(HttpServletRequest request, Long orderNo) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }

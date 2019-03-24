@@ -3,14 +3,12 @@ package com.mmall.controller.backend;
 
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
-import com.mmall.pojo.Category;
 import com.mmall.pojo.User;
 import com.mmall.service.ICategoryService;
 import com.mmall.service.IUserService;
-import com.mmall.util.Const;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("/manage/category/")
@@ -37,7 +33,7 @@ public class CategoryManagerController {
     @ResponseBody
     public ServerResponse<String> addCategory(HttpServletRequest request, String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -53,7 +49,7 @@ public class CategoryManagerController {
     @ResponseBody
     public ServerResponse<String> setCategory(HttpServletRequest request, Integer categoryId, String categoryName) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -69,7 +65,7 @@ public class CategoryManagerController {
     @ResponseBody
     public ServerResponse getChildrenParallelCategory(HttpServletRequest request, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
@@ -84,7 +80,7 @@ public class CategoryManagerController {
     @ResponseBody
     public ServerResponse getCategoryAndDeepChildrenCategory(HttpServletRequest request, @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
         String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisPoolUtil.get(loginToken), User.class);
+        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
         }
