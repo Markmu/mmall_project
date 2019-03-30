@@ -24,23 +24,23 @@
     </filter-mapping>
 
     <!-- 新增filter -->
-    <!--<filter>-->
-        <!--<filter-name>sessionExprieFilter</filter-name>-->
-        <!--<filter-class>com.mmall.controller.common.SessionExpireFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>sessionExprieFilter</filter-name>-->
-        <!--<url-pattern>*.do</url-pattern>-->
-    <!--</filter-mapping>-->
-
     <filter>
-        <filter-name>springSessionRepositoryFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <filter-name>sessionExprieFilter</filter-name>
+        <filter-class>com.mmall.controller.common.SessionExpireFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-name>sessionExprieFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+
+    <!--<filter>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
+        <!--<url-pattern>*.do</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>

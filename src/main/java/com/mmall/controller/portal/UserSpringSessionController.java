@@ -28,6 +28,10 @@ public class UserSpringSessionController {
     @RequestMapping(value = "login.do", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse) {
+
+        int i = 0;
+        int j = 10/i;
+
         ServerResponse<User> sr = iUserService.login(username, password);
         if (sr.isSuccess()) {
 //            String sessionId = session.getId();
