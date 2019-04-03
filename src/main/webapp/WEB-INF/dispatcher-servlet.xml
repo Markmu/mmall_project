@@ -32,6 +32,14 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <!-- 定义在这里的bean会拦截所有请求 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/manage/**" ></mvc:mapping>
+            <!--<mvc:exclude-mapping path="/manage/user/login.do" />-->
+            <bean id="managerInterceptor" class="com.mmall.controller.common.interceptor.AuthorityInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!-- 文件上传 -->

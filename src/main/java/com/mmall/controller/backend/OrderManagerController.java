@@ -36,35 +36,38 @@ public class OrderManagerController {
     public ServerResponse<PageInfo> list(HttpServletRequest request,
                                          @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
-        if (currentUser == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
-        }
-        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
-        if (sr.isSuccess()) {
-
-            return iOrderService.manageList(pageNum, pageSize);
-
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
-        }
+//        String loginToken = CookieUtil.readLoginToken(request);
+//        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
+//        if (currentUser == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
+//        }
+//        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
+//        if (sr.isSuccess()) {
+//
+//            return iOrderService.manageList(pageNum, pageSize);
+//
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
+//        }
+        return iOrderService.manageList(pageNum, pageSize);
     }
 
     @RequestMapping(value = "detail.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<OrderVo> detail(HttpServletRequest request, Long orderNo) {
-        String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
-        if (currentUser == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
-        }
-        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
-        if (sr.isSuccess()) {
-            return iOrderService.manageDetail(orderNo);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
-        }
+//        String loginToken = CookieUtil.readLoginToken(request);
+//        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
+//        if (currentUser == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
+//        }
+//        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
+//        if (sr.isSuccess()) {
+//            return iOrderService.manageDetail(orderNo);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
+//        }
+        return iOrderService.manageDetail(orderNo);
+
     }
 
 
@@ -73,33 +76,35 @@ public class OrderManagerController {
     public ServerResponse<PageInfo> search(HttpServletRequest request, Long orderNo,
                                            @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
-        if (currentUser == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
-        }
-        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
-        if (sr.isSuccess()) {
-            return iOrderService.manageSearch(orderNo, pageNum, pageSize);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
-        }
+//        String loginToken = CookieUtil.readLoginToken(request);
+//        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
+//        if (currentUser == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
+//        }
+//        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
+//        if (sr.isSuccess()) {
+//            return iOrderService.manageSearch(orderNo, pageNum, pageSize);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
+//        }
+        return iOrderService.manageSearch(orderNo, pageNum, pageSize);
     }
 
     @RequestMapping(value = "send_goods.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse sendGoods(HttpServletRequest request, Long orderNo) {
-        String loginToken = CookieUtil.readLoginToken(request);
-        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
-        if (currentUser == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
-        }
-        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
-        if (sr.isSuccess()) {
-            return iOrderService.sendGoods(orderNo);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
-        }
+//        String loginToken = CookieUtil.readLoginToken(request);
+//        User currentUser = JsonUtil.string2Obj(RedisShardedPoolUtil.get(loginToken), User.class);
+//        if (currentUser == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录, 请登录");
+//        }
+//        ServerResponse sr = iUserService.checkRoleAdmin(currentUser);
+//        if (sr.isSuccess()) {
+//            return iOrderService.sendGoods(orderNo);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作，需要管理员权限");
+//        }
+        return iOrderService.sendGoods(orderNo);
     }
 
 }
