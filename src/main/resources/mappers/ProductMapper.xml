@@ -210,4 +210,11 @@
       </foreach>
     </if>
   </select>
+
+  <select id="selectQuantityByProductId" resultType="int" parameterType="int" >
+    SELECT stock
+    FROM mmall_product
+    WHERE id = #{productId}
+    FOR UPDATE
+  </select>
 </mapper>
