@@ -33,6 +33,10 @@ public class Const {
         int FORGET_TOKEN_EXTIME = 60 * 60 * 12;
     }
 
+    public interface REDIS_LOCK {
+        String CLOSE_ORDER_TASK_LOCK = "CLOSE_ORDER_TASK_LOCK";
+    }
+
     public interface ProductListOrderBy {
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_asc", "price_desc");
     }
